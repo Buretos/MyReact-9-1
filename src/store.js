@@ -1,25 +1,5 @@
-import { appReducer } from './reducer';
+import { createStore } from 'redux';
+import { reducer } from './reducer'
 
-const createStore = (reducer) => {
-	let state;
-	let listeners = []; // массив прослушивателей
+export const store = createStore(reducer);
 
-	return {
-		getState: () => state,
-
-		subscribe: (listener) => {
-			listeners.push(listener);
-			return () => {
-				listeners = listeners.filter((l) => l !== listener);
-			};
-		},
-		dispatch: (action) => {
-			state = reducer(state, action);
-			listeners.forEach((listener) => listener()); // Call all the listeners
-		},
-	};
-};
-
-export const store = createStore(appReducer);
-
-store.dispatch({});

@@ -1,30 +1,16 @@
-import { store } from '../../store';
-import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { PLAYER_ACTION, PLAYER_NAME, STATUS } from '../../constants';
 import { InformationLayout } from './information-layout';
+import { selectCurrentPlayer, selectStatus } from '../../selectors';
 
 export const Information = () => {
-	const [rend, setRend] = useState(false);
+	const status = useSelector(selectStatus);
+	const currentPlayer = useSelector(selectCurrentPlayer);
 
-	useEffect(() => {
-		const handleStoreChange = () => {
-			// console.log('Компонент обновлён');
-			setRend(!rend);
-		};
-
-		const unsubscribe = store.subscribe(handleStoreChange);
-
-		return () => {
-			unsubscribe();
-		};
-	}, [rend]);
-
-	const playerAction = PLAYER_ACTION[store.getState().status];
-	const playerName = PLAYER_NAME[store.getState().currentPlayer];
-	// console.log('Player', playerName);
-
+	const playerAction = PLAYER_ACTION[status];
+	const playerName = PLAYER_NAME[currentPlayer];
 	const information =
-		store.getState().status === STATUS.DRAW
+		status === STATUS.DRAW
 			? 'Ничья'
 			: `${playerAction}: ${playerName}`;
 

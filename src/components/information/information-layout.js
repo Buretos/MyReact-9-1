@@ -1,5 +1,1 @@
-export const InformationLayout = ({ information }) => {
-	// const [ren, setRen] = useState('');
-
-	return <div>{information}</div>;
-};
+export const InformationLayout = ({ information }) => <div>{information}</div>;

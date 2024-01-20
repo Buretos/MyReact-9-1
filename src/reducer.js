@@ -7,7 +7,7 @@ export const initialState = {
 	field: createEmptyField(),
 };
 
-export const appReducer = (state = initialState, action) => {
+export const reducer = (state = initialState, action) => {
 	const { type, payload } = action;
 
 	switch (type) {
